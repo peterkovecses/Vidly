@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Vidly.Seed;
 
 namespace Vidly.Models
 {
@@ -9,10 +10,12 @@ namespace Vidly.Models
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MembershipType> MembershipTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            TestDataConfiguration.ConfigureSeedData(modelBuilder);
         }
     }
 }

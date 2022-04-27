@@ -1,17 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using Vidly.Models;
 
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
-        public IActionResult Index()
+        private readonly VidlyDbContext _dbContext;
+
+        public CustomersController(VidlyDbContext dbContext)
         {
-            return View();
+            _dbContext = dbContext;
         }
 
-        public IActionResult Details()
+        public IActionResult Index()
         {
-            return View();
+            var customers = _dbContext.Movies.ToList();
+            return View(customers);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var customer = _dbContext.Movies.SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+                return NotFound();
+
+            return View(customer);
         }
     }
 }

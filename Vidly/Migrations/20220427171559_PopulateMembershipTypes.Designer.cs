@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vidly.Models;
 
 namespace Vidly.Migrations
 {
     [DbContext(typeof(VidlyDbContext))]
-    partial class VidlyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220427171559_PopulateMembershipTypes")]
+    partial class PopulateMembershipTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,45 +34,13 @@ namespace Vidly.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MembershipTypeId");
 
                     b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsSubscribedForNewsletter = true,
-                            MembershipTypeId = (byte)1,
-                            Name = "Tim"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsSubscribedForNewsletter = true,
-                            MembershipTypeId = (byte)2,
-                            Name = "Tom"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsSubscribedForNewsletter = false,
-                            MembershipTypeId = (byte)3,
-                            Name = "Tod"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            IsSubscribedForNewsletter = true,
-                            MembershipTypeId = (byte)4,
-                            Name = "Jane"
-                        });
                 });
 
             modelBuilder.Entity("Vidly.Models.MembershipType", b =>
@@ -130,9 +100,7 @@ namespace Vidly.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

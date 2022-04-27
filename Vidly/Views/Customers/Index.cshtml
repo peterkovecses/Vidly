@@ -4,3 +4,27 @@
 }
 
 <h2>Customers</h2>
+
+@if (!Model.Any())
+{
+    <p>We don't have any customers yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customer</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
+                    <td><a asp-controller="customers" asp-action="details" asp-route-id=@customer.Id>@customer.Name</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
