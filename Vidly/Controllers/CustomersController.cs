@@ -22,7 +22,7 @@ namespace Vidly.Controllers
 
         public IActionResult Details(int id)
         {
-            var customer = _dbContext.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = _dbContext.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return NotFound();

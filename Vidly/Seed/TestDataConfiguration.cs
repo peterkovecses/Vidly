@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using Vidly.Models;
 
 namespace Vidly.Seed
@@ -15,11 +16,11 @@ namespace Vidly.Seed
                 );
 
             modelBuilder.Entity<Customer>().HasData(
-                new Customer { Id = 1, Name = "Tim", IsSubscribedForNewsletter = true, MembershipTypeId = (byte)1 },
-                new Customer { Id = 2, Name = "Tom", IsSubscribedForNewsletter = true, MembershipTypeId = (byte)2 },
-                new Customer { Id = 3, Name = "Tod", IsSubscribedForNewsletter = false, MembershipTypeId = (byte)3 },
-                new Customer { Id = 4, Name = "Jane", IsSubscribedForNewsletter = true, MembershipTypeId = (byte)4 }
-                );
+                new Customer { Id = 1, Birthdate = new DateTime(1976, 11, 22), Name = "Tim", IsSubscribedForNewsletter = true, MembershipTypeId = (byte)1 },
+                new Customer { Id = 2, Birthdate = new DateTime(1983, 01, 18), Name = "Tom", IsSubscribedForNewsletter = true, MembershipTypeId = (byte)2 },
+                new Customer { Id = 3, Birthdate = null, Name = "Tod", IsSubscribedForNewsletter = false, MembershipTypeId = (byte)3 },
+                new Customer { Id = 4, Birthdate = new DateTime(1989, 04, 22), Name = "Jane", IsSubscribedForNewsletter = true, MembershipTypeId = (byte)4 }
+                ); ;
         }
     }
 }
