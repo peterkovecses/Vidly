@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Vidly.Models;
 
@@ -15,13 +16,13 @@ namespace Vidly.Controllers
 
         public IActionResult Index()
         {
-            var movies = _dbContext.Movies.ToList();
+            var movies = _dbContext.Movies.Include(m => m.Genre).ToList();
             return View(movies);
         }
 
         public IActionResult Details(int id)
         {
-            var movie = _dbContext.Movies.SingleOrDefault(c => c.Id == id);
+            var movie = _dbContext.Movies.Include(m => m.Genre).SingleOrDefault(c => c.Id == id);
 
             if (movie == null)
                 return NotFound();

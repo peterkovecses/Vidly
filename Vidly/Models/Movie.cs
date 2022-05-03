@@ -8,5 +8,8 @@ namespace Vidly.Models
         [Required]
         [StringLength(255)]
         public string Title { get; set; }
+
+        public byte GenreId { get; set; }
+        public Genre Genre { get; set; }
     }
 }

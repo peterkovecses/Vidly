@@ -20,7 +20,25 @@ namespace Vidly.Seed
                 new Customer { Id = 2, Birthdate = new DateTime(1983, 01, 18), Name = "Tom", IsSubscribedForNewsletter = true, MembershipTypeId = (byte)2 },
                 new Customer { Id = 3, Birthdate = null, Name = "Tod", IsSubscribedForNewsletter = false, MembershipTypeId = (byte)3 },
                 new Customer { Id = 4, Birthdate = new DateTime(1989, 04, 22), Name = "Jane", IsSubscribedForNewsletter = true, MembershipTypeId = (byte)4 }
-                ); ;
+                );
+
+            modelBuilder.Entity<Genre>().HasData(
+                new Genre { Id = 1, Name = "Action" },
+                new Genre { Id = 2, Name = "Thriller" },
+                new Genre { Id = 3, Name = "Family" },
+                new Genre { Id = 4, Name = "Romance" },
+                new Genre { Id = 5, Name = "Comedy" }
+                );
+
+            modelBuilder.Entity<Movie>().HasData(
+                new Movie { Id = 1, Title = "Terminator", GenreId = (byte)1 },
+                new Movie { Id = 2, Title = "Terminator2", GenreId = (byte)1 },
+                new Movie { Id = 3, Title = "Rambo", GenreId = (byte)1 },
+                new Movie { Id = 4, Title = "Rambo 2", GenreId = (byte)1 },
+                new Movie { Id = 5, Title = "Rambo 3", GenreId = (byte)1 },
+                new Movie { Id = 6, Title = "Oscar", GenreId = (byte)5 }
+
+                );
         }
     }
 }
