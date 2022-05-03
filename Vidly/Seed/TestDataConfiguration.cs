@@ -8,10 +8,10 @@ namespace Vidly.Seed
         public static void ConfigureSeedData(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MembershipType>().HasData(
-                new MembershipType { Id = 1, SignUpFee = 0, DurationInMonths = 0, DiscountRate = 0 },
-                new MembershipType { Id = 2, SignUpFee = 30, DurationInMonths = 1, DiscountRate = 10 },
-                new MembershipType { Id = 3, SignUpFee = 90, DurationInMonths = 3, DiscountRate = 15 },
-                new MembershipType { Id = 4, SignUpFee = 300, DurationInMonths = 12, DiscountRate = 20 }
+                new MembershipType { Id = 1, Name = "Pay as You Go", SignUpFee = 0, DurationInMonths = 0, DiscountRate = 0 },
+                new MembershipType { Id = 2, Name = "Monthly", SignUpFee = 30, DurationInMonths = 1, DiscountRate = 10 },
+                new MembershipType { Id = 3, Name = "Quarterly", SignUpFee = 90, DurationInMonths = 3, DiscountRate = 15 },
+                new MembershipType { Id = 4, Name = "Annual", SignUpFee = 300, DurationInMonths = 12, DiscountRate = 20 }
                 );
 
             modelBuilder.Entity<Customer>().HasData(

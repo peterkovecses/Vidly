@@ -15,6 +15,8 @@ else
         <thead>
             <tr>
                 <th>Customer</th>
+                <th>Membership type</th>
+
             </tr>
         </thead>
         <tbody>
@@ -23,6 +25,7 @@ else
                 <tr>
                     @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
                     <td><a asp-controller="customers" asp-action="details" asp-route-id=@customer.Id>@customer.Name</a></td>
+                    <td>@customer.MembershipType.Name</td>
                 </tr>
             }
         </tbody>
