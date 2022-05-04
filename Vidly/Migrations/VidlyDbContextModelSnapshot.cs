@@ -92,7 +92,7 @@ namespace Vidly.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genres");
 
                     b.HasData(
                         new
@@ -141,7 +141,7 @@ namespace Vidly.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MembershipType");
+                    b.ToTable("MembershipTypes");
 
                     b.HasData(
                         new

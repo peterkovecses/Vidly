@@ -10,7 +10,7 @@ using Vidly.Models;
 namespace Vidly.Migrations
 {
     [DbContext(typeof(VidlyDbContext))]
-    [Migration("20220504095414_UpdateMovies")]
+    [Migration("20220504185806_UpdateMovies")]
     partial class UpdateMovies
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,7 +94,7 @@ namespace Vidly.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genres");
 
                     b.HasData(
                         new
@@ -143,7 +143,7 @@ namespace Vidly.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MembershipType");
+                    b.ToTable("MembershipTypes");
 
                     b.HasData(
                         new

@@ -1,9 +1,23 @@
 ﻿@model Vidly.ViewModels.CustomerFormViewModel
 @{
-    ViewData["Title"] = "New Customer";
+    if(Model.Customer == null)
+    {
+        ViewData["Title"] = "New Customer";        
+    }
+    else
+    {
+        ViewData["Title"] = "Update Customer";
+    }
 }
 
-<h2>New Customer</h2>
+@if(Model.Customer == null)
+{
+    <h2>New Customer</h2>
+}
+else
+{
+    <h2>Update Customer</h2>
+}
 
 <div class="row">
     <div class="col-md-6">
@@ -36,7 +50,7 @@
             </div>
 
             <div class="form-group mt-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

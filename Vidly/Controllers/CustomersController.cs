@@ -34,10 +34,9 @@ namespace Vidly.Controllers
 
         public IActionResult New()
         {
-            var membershipTypes = _dbContext.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
-                MembershipTypesSelectList = new SelectList(membershipTypes, "Id", "Name")
+                MembershipTypesSelectList = new SelectList(_dbContext.MembershipTypes.ToList(), "Id", "Name")
             };       
             return View("CustomerForm", viewModel);
         }       

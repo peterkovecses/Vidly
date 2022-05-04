@@ -1,0 +1,57 @@
+﻿@model Vidly.ViewModels.MovieFormViewModel
+@{
+    if(Model.Movie == null)
+    {
+        ViewData["Title"] = "New Movie";        
+    }
+    else
+    {
+        ViewData["Title"] = "Update Movie";
+    }
+}
+
+@if(Model.Movie == null)
+{
+    <h2>New Movie</h2>
+}
+else
+{
+    <h2>Update Movie</h2>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-controller="Movies" asp-action="Save">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Movie.Id" />
+
+            <div class="form-group">
+                <label asp-for="@Model.Movie.Title" class="control-label"></label>
+                <input asp-for="@Model.Movie.Title" class="form-control" rows="8">
+                <span asp-validation-for="@Model.Movie.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Movie.ReleaseDate" class="control-label"></label>
+                <input asp-for="@Model.Movie.ReleaseDate" type="date" max="9999-12-31" class="form-control" rows="8">
+                <span asp-validation-for="@Model.Movie.ReleaseDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Movie.GenreId" class="control-label"></label>
+                <select asp-for="@Model.Movie.GenreId" class="form-control" asp-items="@Model.GenresSelectList" class="form-control" rows="8"></select>            
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Movie.NumberInStock" class="control-label"></label>
+                <input asp-for="@Model.Movie.NumberInStock" min="1" max="20" class="form-control" rows="8">
+                <span asp-validation-for="@Model.Movie.NumberInStock" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -3,7 +3,12 @@
     ViewData["Title"] = "Movies";
 }
 
-<h2>Movies</h2>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h2>Movies</h2>
+    <a asp-controller="Movies" asp-action="New" class="btn btn-outline-primary">
+        New Movie
+    </a>
+</div>
 
 @if (!Model.Any())
 {
@@ -22,7 +27,7 @@ else
             @foreach (var movie in Model)
             {
                 <tr>
-                    <td><a asp-controller="movies" asp-action="details" asp-route-id=@movie.Id>@movie.Title</a></td>
+                    <td><a asp-controller="movies" asp-action="Edit" asp-route-id=@movie.Id>@movie.Title</a></td>
                     <td>@movie.Genre.Name</td>
                 </tr>
             }
