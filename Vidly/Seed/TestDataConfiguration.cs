@@ -31,13 +31,12 @@ namespace Vidly.Seed
                 );
 
             modelBuilder.Entity<Movie>().HasData(
-                new Movie { Id = 1, Title = "Terminator", GenreId = (byte)1 },
-                new Movie { Id = 2, Title = "Terminator2", GenreId = (byte)1 },
-                new Movie { Id = 3, Title = "Rambo", GenreId = (byte)1 },
-                new Movie { Id = 4, Title = "Rambo 2", GenreId = (byte)1 },
-                new Movie { Id = 5, Title = "Rambo 3", GenreId = (byte)1 },
-                new Movie { Id = 6, Title = "Oscar", GenreId = (byte)5 }
-
+                new Movie { Id = 1, Title = "Terminator", GenreId = (byte)1, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1984, 2, 1), NumberInStock = (byte)15 },
+                new Movie { Id = 2, Title = "Terminator2", GenreId = (byte)1, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1991, 2, 1), NumberInStock = (byte)15 },
+                new Movie { Id = 3, Title = "Rambo", GenreId = (byte)1, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1982, 2, 1), NumberInStock = (byte)15 },
+                new Movie { Id = 4, Title = "Rambo 2", GenreId = (byte)1, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1985, 2, 1), NumberInStock = (byte)15 },
+                new Movie { Id = 5, Title = "Rambo 3", GenreId = (byte)1, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1988, 2, 1), NumberInStock = (byte)15 },
+                new Movie { Id = 6, Title = "Oscar", GenreId = (byte)5, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1991, 2, 1), NumberInStock = (byte)15 }
                 );
         }
     }
