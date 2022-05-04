@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -28,6 +30,53 @@ namespace Vidly.Controllers
                 return NotFound();
 
             return View(customer);
+        }
+
+        public IActionResult New()
+        {
+            var membershipTypes = _dbContext.MembershipTypes.ToList();
+            var viewModel = new CustomerFormViewModel
+            {
+                MembershipTypesSelectList = new SelectList(membershipTypes, "Id", "Name")
+            };       
+            return View("CustomerForm", viewModel);
+        }       
+
+        public IActionResult Edit (int id)
+        {
+            var customer = _dbContext.Customers.SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+                return NotFound();
+
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MembershipTypesSelectList = new SelectList(_dbContext.MembershipTypes.ToList(), "Id", "Name")
+            };
+
+            return View("CustomerForm", viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Save(Customer customer)
+        {
+            if (customer.Id == 0)
+                _dbContext.Customers.Add(customer);
+
+            else
+            {
+                var customerInDb = _dbContext.Customers.Single(c => c.Id == customer.Id);
+
+                customerInDb.Name = customer.Name;
+                customerInDb.Birthdate = customer.Birthdate;
+                customerInDb.IsSubscribedForNewsletter = customer.IsSubscribedForNewsletter;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+            }
+
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index", "Customers");
         }
     }
 }
