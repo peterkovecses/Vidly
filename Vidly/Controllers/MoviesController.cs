@@ -81,5 +81,15 @@ namespace Vidly.Controllers
 
             return RedirectToAction("Index", "Movies");
         }
+
+        [HttpPost]
+        public IActionResult Delete(Movie movie)
+        {
+            _dbContext.Movies.Remove(movie);
+
+            _dbContext.SaveChanges();
+
+            return new JsonResult(new { url = "reload" });
+        }
     }
 }

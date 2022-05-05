@@ -5,6 +5,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-2">
     <h2>Customers</h2>
+    <span id="spinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
     <a asp-controller="Customers" asp-action="New" class="btn btn-outline-primary">
         New Customer
     </a>
@@ -21,18 +22,34 @@ else
             <tr>
                 <th>Customer</th>
                 <th>Membership type</th>
-
+                <th class="col-md-1"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var customer in Model)
             {
                 <tr>
-                    @*<td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>*@
                     <td><a asp-controller="Customers" asp-action="Edit" asp-route-id=@customer.Id>@customer.Name</a></td>
                     <td>@customer.MembershipType.Name</td>
+                    <td class="text-center">
+                        <form method="post" asp-controller="Customers" asp-action="Delete"
+                            data-ajax="true"
+                            data-ajax-method="post"
+                            data-ajax-confirm="Are you sure you want to delete the customer?"
+                            data-ajax-loading="#spinner"
+                            data-ajax-success="refreshPage">
+                            <input type="hidden" name="id" value="@customer.Id">
+                            <button type="submit" class="btn btn-sm text-danger" title="Delete">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+}
+
+@section Scripts {
+<script src="/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
 }

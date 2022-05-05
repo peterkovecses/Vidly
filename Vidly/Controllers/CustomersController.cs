@@ -77,5 +77,15 @@ namespace Vidly.Controllers
 
             return RedirectToAction("Index", "Customers");
         }
+
+        [HttpPost]
+        public IActionResult Delete(Customer customer)
+        {
+            _dbContext.Customers.Remove(customer);
+
+            _dbContext.SaveChanges();
+
+            return new JsonResult(new { url = "reload" });
+        }
     }
 }

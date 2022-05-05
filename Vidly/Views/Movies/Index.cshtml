@@ -5,6 +5,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-2">
     <h2>Movies</h2>
+    <span id="spinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
     <a asp-controller="Movies" asp-action="New" class="btn btn-outline-primary">
         New Movie
     </a>
@@ -21,6 +22,7 @@ else
             <tr>
                 <th>Movie</th>
                 <th>Genre</th>
+                <th class="col-md-1"></th
             </tr>
         </thead>
         <tbody>
@@ -29,8 +31,25 @@ else
                 <tr>
                     <td><a asp-controller="movies" asp-action="Edit" asp-route-id=@movie.Id>@movie.Title</a></td>
                     <td>@movie.Genre.Name</td>
+                    <td class="text-center">
+                        <form method="post" asp-controller="Movies" asp-action="Delete"
+                            data-ajax="true"
+                            data-ajax-method="post"
+                            data-ajax-confirm="Are you sure you want to delete the movie?"
+                            data-ajax-loading="#spinner"
+                            data-ajax-success="refreshPage">
+                            <input type="hidden" name="id" value="@movie.Id">
+                            <button type="submit" class="btn btn-sm text-danger" title="Delete">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+}
+
+@section Scripts {
+    <script src="/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
 }
