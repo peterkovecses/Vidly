@@ -5,17 +5,17 @@ namespace Vidly.Models
 {
     public class Movie
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         [StringLength(255)]
         public string Title { get; set; }
 
-        [Required]
         public DateTime DateAdded { get; set; }
 
         [Required]
         [Display(Name = "Release Date")]
+        [MaxReleaseDate]
         public DateTime ReleaseDate { get; set; }
 
         [Required]

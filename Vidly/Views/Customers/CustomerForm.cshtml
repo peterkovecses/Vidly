@@ -24,7 +24,7 @@ else
         <form method="post" asp-controller="Customers" asp-action="Save">
             <div asp-validation-summary="All" class="text-danger"></div>
 
-            <input type="hidden" asp-for="Customer.Id" />
+            <input type="hidden" asp-for="@Model.Customer.Id"/>
 
             <div class="form-group">
                 <label asp-for="@Model.Customer.Name" class="control-label"></label>
