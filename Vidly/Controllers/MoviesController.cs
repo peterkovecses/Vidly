@@ -72,7 +72,7 @@ namespace Vidly.Controllers
                 return View("MovieForm", viewModel);
             }
 
-            if (movie.Id == null)
+            if (movie.Id == 0)
             {
                 movie.DateAdded = DateTime.Now.Date;
                 _dbContext.Movies.Add(movie);

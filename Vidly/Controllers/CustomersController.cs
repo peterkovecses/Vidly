@@ -70,7 +70,7 @@ namespace Vidly.Controllers
                 return View("CustomerForm", viewModel);
             }
 
-            if (customer.Id == null)
+            if (customer.Id == 0)
                 _dbContext.Customers.Add(customer);
 
             else
