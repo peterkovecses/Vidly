@@ -37,7 +37,7 @@ namespace Vidly.Controllers
         {
             var viewModel = new MovieFormViewModel
             {
-                GenresSelectList = new SelectList(_dbContext.Genres.ToList(), "Id", "Name")
+                GenresSelectList = new SelectList(_dbContext.MovieGenres.ToList(), "Id", "Name")
             };
             return View("MovieForm", viewModel);
         }
@@ -52,7 +52,7 @@ namespace Vidly.Controllers
             var viewModel = new MovieFormViewModel
             {
                 Movie = movie,
-                GenresSelectList = new SelectList(_dbContext.Genres.ToList(), "Id", "Name")
+                GenresSelectList = new SelectList(_dbContext.MovieGenres.ToList(), "Id", "Name")
             };
 
             return View("MovieForm", viewModel);
@@ -66,7 +66,7 @@ namespace Vidly.Controllers
                 var viewModel = new MovieFormViewModel
                 {
                     Movie = movie,
-                    GenresSelectList = new SelectList(_dbContext.Genres.ToList(), "Id", "Name")
+                    GenresSelectList = new SelectList(_dbContext.MovieGenres.ToList(), "Id", "Name")
                 };
 
                 return View("MovieForm", viewModel);

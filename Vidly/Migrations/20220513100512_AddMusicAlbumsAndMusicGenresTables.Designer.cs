@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vidly.Models;
 
 namespace Vidly.Migrations
 {
     [DbContext(typeof(VidlyDbContext))]
-    partial class VidlyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220513100512_AddMusicAlbumsAndMusicGenresTables")]
+    partial class AddMusicAlbumsAndMusicGenresTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,48 +297,6 @@ namespace Vidly.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("MusicAlbums");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Artist = "Metallica",
-                            DateAdded = new DateTime(2022, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = (byte)3,
-                            NumberInStock = (byte)15,
-                            ReleaseDate = new DateTime(1983, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Kill 'Em All"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Artist = "Metallica",
-                            DateAdded = new DateTime(2022, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = (byte)3,
-                            NumberInStock = (byte)15,
-                            ReleaseDate = new DateTime(1984, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Ride the Lightning"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Artist = "Metallica",
-                            DateAdded = new DateTime(2022, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = (byte)3,
-                            NumberInStock = (byte)15,
-                            ReleaseDate = new DateTime(1986, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Master of Puppets"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Artist = "Metallica",
-                            DateAdded = new DateTime(2022, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GenreId = (byte)3,
-                            NumberInStock = (byte)15,
-                            ReleaseDate = new DateTime(1988, 9, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "...And Justice for All"
-                        });
                 });
 
             modelBuilder.Entity("Vidly.Models.MusicGenre", b =>

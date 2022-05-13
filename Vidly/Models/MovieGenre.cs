@@ -2,7 +2,7 @@
 
 namespace Vidly.Models
 {
-    public class Genre
+    public class MovieGenre
     {
         public byte Id { get; set; }
         [Required]

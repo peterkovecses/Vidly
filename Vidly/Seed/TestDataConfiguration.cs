@@ -22,12 +22,12 @@ namespace Vidly.Seed
                 new Customer { Id = 4, Birthdate = new DateTime(1989, 04, 22), Name = "Jane", IsSubscribedForNewsletter = true, MembershipTypeId = MembershipType.Annual }
                 );
 
-            modelBuilder.Entity<Genre>().HasData(
-                new Genre { Id = 1, Name = "Action" },
-                new Genre { Id = 2, Name = "Thriller" },
-                new Genre { Id = 3, Name = "Family" },
-                new Genre { Id = 4, Name = "Romance" },
-                new Genre { Id = 5, Name = "Comedy" }
+            modelBuilder.Entity<MovieGenre>().HasData(
+                new MovieGenre { Id = 1, Name = "Action" },
+                new MovieGenre { Id = 2, Name = "Thriller" },
+                new MovieGenre { Id = 3, Name = "Family" },
+                new MovieGenre { Id = 4, Name = "Romance" },
+                new MovieGenre { Id = 5, Name = "Comedy" }
                 );
 
             modelBuilder.Entity<Movie>().HasData(
@@ -37,6 +37,23 @@ namespace Vidly.Seed
                 new Movie { Id = 4, Title = "Rambo 2", GenreId = (byte)1, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1985, 2, 1), NumberInStock = (byte)15 },
                 new Movie { Id = 5, Title = "Rambo 3", GenreId = (byte)1, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1988, 2, 1), NumberInStock = (byte)15 },
                 new Movie { Id = 6, Title = "Oscar", GenreId = (byte)5, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1991, 2, 1), NumberInStock = (byte)15 }
+                );
+
+            modelBuilder.Entity<MusicGenre>().HasData(
+                new MovieGenre { Id = 1, Name = "Rock" },
+                new MovieGenre { Id = 2, Name = "Jazz" },
+                new MovieGenre { Id = 3, Name = "Heavy Metal" },
+                new MovieGenre { Id = 4, Name = "Rap/Hip Hop" },
+                new MovieGenre { Id = 5, Name = "Electronic" },
+                new MovieGenre { Id = 6, Name = "Country" },
+                new MovieGenre { Id = 7, Name = "Soul/R&B" }
+                );
+
+            modelBuilder.Entity<MusicAlbum>().HasData(
+                new MusicAlbum { Id = 1, Artist = "Metallica", Title = "Kill 'Em All", GenreId = (byte)3, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1983, 7, 25), NumberInStock = (byte)15 },
+                new MusicAlbum { Id = 2, Artist = "Metallica", Title = "Ride the Lightning", GenreId = (byte)3, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1984, 7, 27), NumberInStock = (byte)15 },
+                new MusicAlbum { Id = 3, Artist = "Metallica", Title = "Master of Puppets", GenreId = (byte)3, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1986, 3, 3), NumberInStock = (byte)15 },
+                new MusicAlbum { Id = 4, Artist = "Metallica", Title = "...And Justice for All", GenreId = (byte)3, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1988, 9, 7), NumberInStock = (byte)15 }
                 );
         }
     }

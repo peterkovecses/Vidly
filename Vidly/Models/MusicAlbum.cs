@@ -3,19 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vidly.Models
 {
-    public class Movie
+    public class MusicAlbum
     {
         public int Id { get; set; }
-
-        [Required]
-        [StringLength(255)]
+        public string Artist { get; set; }
         public string Title { get; set; }
-
         public DateTime DateAdded { get; set; }
 
         [Required]
         [Display(Name = "Release Date")]
-        [MovieMaxReleaseDate]
+        [MusicAlbumMaxReleaseDate]
         public DateTime ReleaseDate { get; set; }
 
         [Required]
@@ -23,9 +20,7 @@ namespace Vidly.Models
         [Range(1, 20)]
         public byte NumberInStock { get; set; }
 
-        [Required]
-        [Display(Name = "Genre")]
         public byte GenreId { get; set; }
-        public MovieGenre Genre { get; set; }
+        public MusicGenre Genre { get; set; }
     }
 }

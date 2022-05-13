@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vidly.Models
 {
-    public class MaxReleaseDate : ValidationAttribute
+    public class MusicAlbumMaxReleaseDate : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var movie = (Movie)validationContext.ObjectInstance;
+            var musicAlbum = (MusicAlbum)validationContext.ObjectInstance;
 
-            if (movie.ReleaseDate <= DateTime.Now)
+            if (musicAlbum.ReleaseDate <= DateTime.Now)
                 return ValidationResult.Success;
 
             else
