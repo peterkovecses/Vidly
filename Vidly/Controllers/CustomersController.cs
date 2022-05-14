@@ -50,6 +50,7 @@ namespace Vidly.Controllers
 
             var viewModel = new CustomerFormViewModel
             {
+                CustomerId = customer.Id,
                 Customer = customer,
                 MembershipTypesSelectList = new SelectList(_dbContext.MembershipTypes.ToList(), "Id", "Name")
             };
@@ -58,7 +59,7 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(Customer customer)
+        public IActionResult Save(int? customerId, Customer customer)
         {
             if (!ModelState.IsValid)
             {
@@ -70,12 +71,12 @@ namespace Vidly.Controllers
                 return View("CustomerForm", viewModel);
             }
 
-            if (customer.Id == 0)
+            if (customerId == null)
                 _dbContext.Customers.Add(customer);
 
             else
             {
-                var customerInDb = _dbContext.Customers.Single(c => c.Id == customer.Id);
+                var customerInDb = _dbContext.Customers.Single(c => c.Id == customerId);
 
                 customerInDb.Name = customer.Name;
                 customerInDb.Birthdate = customer.Birthdate;

@@ -6,6 +6,7 @@ namespace Vidly.ViewModels
 {
     public class CustomerFormViewModel
     {
+        public int? CustomerId { get; set; }
         public Customer Customer { get; set; }
         public SelectList MembershipTypesSelectList { get; set; }       
     }

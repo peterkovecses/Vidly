@@ -24,8 +24,7 @@ else
         <form method="post" asp-controller="Movies" asp-action="Save">
             <div asp-validation-summary="All" class="text-danger"></div>
 
-            @*<input type="hidden" asp-for="@Model.Movie.Id"/>*@
-            @Html.Hidden("Movie.Id", (Model.Movie != null) ? Model.Movie.Id : 0)
+            <input type="hidden" asp-for="@Model.MovieId"/>
 
             <div class="form-group">
                 <label asp-for="@Model.Movie.Title" class="control-label"></label>
