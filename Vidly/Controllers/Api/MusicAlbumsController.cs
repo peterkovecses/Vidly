@@ -5,7 +5,7 @@ using Vidly.Models;
 
 namespace Vidly.Controllers.Api
 {
-    [Route("api/MusicAlbums")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class MusicAlbumsController : ControllerBase
     {
@@ -46,6 +46,7 @@ namespace Vidly.Controllers.Api
             return musicAlbum;
         }
 
+        [Route("Edit")]
         [HttpPut]
         public ActionResult UpdateMusicAlbum(MusicAlbum musicAlbum)
         {
@@ -57,17 +58,18 @@ namespace Vidly.Controllers.Api
             if (musicAlbumInDb == null)
                 return NotFound();
 
-            musicAlbum.Artist = musicAlbum.Artist;
+            musicAlbumInDb.Artist = musicAlbum.Artist;
             musicAlbumInDb.Title = musicAlbum.Title;
-            musicAlbum.NumberInStock = musicAlbum.NumberInStock;
-            musicAlbum.GenreId = musicAlbum.GenreId;
-            musicAlbum.ReleaseDate = musicAlbum.ReleaseDate;
+            musicAlbumInDb.NumberInStock = musicAlbum.NumberInStock;
+            musicAlbumInDb.GenreId = musicAlbum.GenreId;
+            musicAlbum.ReleaseDate = musicAlbumInDb.ReleaseDate;
 
             _dbContext.SaveChanges();
 
             return Ok();
         }
 
+        [Route("Delete/{id}")]
         [HttpDelete]
         public ActionResult DeleteMusicAlbum(int id)
         {
