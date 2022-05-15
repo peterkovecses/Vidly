@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Vidly.DTOs;
@@ -27,19 +29,19 @@ namespace Vidly.Controllers.Api
         }
 
         [Route("{id}")]
-        public ActionResult<MusicAlbumDTO> GetMusicAlbum(int id)
+        public IActionResult GetMusicAlbum(int id)
         {
             var musicAlbum = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == id);
 
             if (musicAlbum == null)
                 return NotFound();
 
-            return _mapper.Map<MusicAlbum, MusicAlbumDTO>(musicAlbum);
+            return Ok(_mapper.Map<MusicAlbum, MusicAlbumDTO>(musicAlbum));
         }
 
         [Route("Create")]
         [HttpPost]
-        public ActionResult<MusicAlbumDTO> CreateMusicAlbum(MusicAlbumDTO musicAlbumDTO)
+        public IActionResult CreateMusicAlbum(MusicAlbumDTO musicAlbumDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -51,22 +53,24 @@ namespace Vidly.Controllers.Api
 
             musicAlbumDTO.Id = musicAlbum.Id;
 
-            return musicAlbumDTO;
+            return Created(new Uri(Request.GetDisplayUrl() + "/" + musicAlbum.Id), musicAlbumDTO);
         }
 
-        [Route("Edit")]
+        [Route("Edit/{id}")]
         [HttpPut]
-        public ActionResult UpdateMusicAlbum(MusicAlbumDTO musicAlbumDTO)
+        public IActionResult UpdateMusicAlbum(int id, MusicAlbumDTO musicAlbumDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var musicAlbumInDb = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == musicAlbumDTO.Id);
+            var musicAlbumInDb = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == id);
 
             if (musicAlbumInDb == null)
                 return NotFound();
 
-            _mapper.Map<MusicAlbumDTO, MusicAlbum>(musicAlbumDTO, musicAlbumInDb);
+            musicAlbumDTO.Id = id;
+
+            _mapper.Map(musicAlbumDTO, musicAlbumInDb);
 
             _dbContext.SaveChanges();
 
@@ -75,7 +79,7 @@ namespace Vidly.Controllers.Api
 
         [Route("Delete/{id}")]
         [HttpDelete]
-        public ActionResult DeleteMusicAlbum(int id)
+        public IActionResult DeleteMusicAlbum(int id)
         {
             var musicAlbumInDb = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == id);
 
