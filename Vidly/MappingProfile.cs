@@ -10,6 +10,7 @@ namespace Vidly
         {
             CreateMap<MusicAlbum, MusicAlbumDTO>();
             CreateMap<MusicAlbumDTO, MusicAlbum>();
+            CreateMap<MusicGenre, MusicGenreDTO>();
         }
     }
 }

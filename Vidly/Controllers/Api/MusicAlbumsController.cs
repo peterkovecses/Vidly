@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +25,14 @@ namespace Vidly.Controllers.Api
         }
 
         [Route("")]
-        public IEnumerable<MusicAlbumDTO> GetMusicAlbums()
+        public IEnumerable<MusicAlbumDTO> GetMusicAlbums(string query = null)
         {
-            return _dbContext.MusicAlbums.ToList().Select(_mapper.Map<MusicAlbum, MusicAlbumDTO>);
+            var musicAlbumsQuery = _dbContext.MusicAlbums.Include(ma => ma.Genre);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                musicAlbumsQuery = (IIncludableQueryable<MusicAlbum, MusicGenre>)musicAlbumsQuery.Where(m => m.Title.Contains(query));
+
+            return musicAlbumsQuery.ToList().Select(_mapper.Map<MusicAlbum, MusicAlbumDTO>);
         }
 
         [Route("{id}")]
