@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Vidly.Models;
 
@@ -68,6 +69,11 @@ namespace Vidly
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
         }
     }
 }
