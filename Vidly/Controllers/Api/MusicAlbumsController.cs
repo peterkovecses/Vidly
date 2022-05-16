@@ -24,7 +24,8 @@ namespace Vidly.Controllers.Api
             _mapper = mapper;
         }
 
-        [Route("")]
+        // GET /api/musicalbums
+        [HttpGet]
         public IEnumerable<MusicAlbumDTO> GetMusicAlbums(string query = null)
         {
             var musicAlbumsQuery = _dbContext.MusicAlbums.Include(ma => ma.Genre);
@@ -35,7 +36,8 @@ namespace Vidly.Controllers.Api
             return musicAlbumsQuery.ToList().Select(_mapper.Map<MusicAlbum, MusicAlbumDTO>);
         }
 
-        [Route("{id}")]
+        // GET /api/musicalbums/1
+        [HttpGet("{id}")]
         public IActionResult GetMusicAlbum(int id)
         {
             var musicAlbum = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == id);
@@ -46,7 +48,7 @@ namespace Vidly.Controllers.Api
             return Ok(_mapper.Map<MusicAlbum, MusicAlbumDTO>(musicAlbum));
         }
 
-        [Route("Create")]
+        // POST /api/musicalbums
         [HttpPost]
         public IActionResult CreateMusicAlbum(MusicAlbumDTO musicAlbumDTO)
         {
@@ -63,8 +65,8 @@ namespace Vidly.Controllers.Api
             return Created(new Uri(Request.GetDisplayUrl() + "/" + musicAlbum.Id), musicAlbumDTO);
         }
 
-        [Route("Edit/{id}")]
-        [HttpPut]
+        // PUT /api/musicalbums/1
+        [HttpPut("{id}")]
         public IActionResult UpdateMusicAlbum(int id, MusicAlbumDTO musicAlbumDTO)
         {
             if (!ModelState.IsValid)
@@ -84,8 +86,8 @@ namespace Vidly.Controllers.Api
             return Ok();
         }
 
-        [Route("Delete/{id}")]
-        [HttpDelete]
+        // DELETE /api/musicalbums/1
+        [HttpDelete("{id}")]
         public IActionResult DeleteMusicAlbum(int id)
         {
             var musicAlbumInDb = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == id);
