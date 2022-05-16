@@ -26,14 +26,14 @@ namespace Vidly.Controllers.Api
 
         // GET /api/musicalbums
         [HttpGet]
-        public IEnumerable<MusicAlbumDTO> GetMusicAlbums(string query = null)
+        public IActionResult GetMusicAlbums(string query = null)
         {
             var musicAlbumsQuery = _dbContext.MusicAlbums.Include(ma => ma.Genre);
 
             if (!String.IsNullOrWhiteSpace(query))
                 musicAlbumsQuery = (IIncludableQueryable<MusicAlbum, MusicGenre>)musicAlbumsQuery.Where(m => m.Title.Contains(query));
 
-            return musicAlbumsQuery.ToList().Select(_mapper.Map<MusicAlbum, MusicAlbumDTO>);
+            return Ok(musicAlbumsQuery.ToList().Select(_mapper.Map<MusicAlbum, MusicAlbumDTO>));
         }
 
         // GET /api/musicalbums/1
