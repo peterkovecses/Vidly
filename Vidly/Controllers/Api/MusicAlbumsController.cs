@@ -14,15 +14,11 @@ namespace Vidly.Controllers.Api
     [ApiController]
     public class MusicAlbumsController : ControllerBase
     {
-        private readonly VidlyDbContext _dbContext;
         private readonly IMusicAlbumService _musicAlbumService;
-        private readonly IMapper _mapper;
 
-        public MusicAlbumsController(VidlyDbContext dbContext, IMusicAlbumService musicAlbumService, IMapper mapper)
+        public MusicAlbumsController(IMusicAlbumService musicAlbumService)
         {
-            _dbContext = dbContext;
             _musicAlbumService = musicAlbumService;
-            _mapper = mapper;
         }
 
         // GET /api/musicalbums
