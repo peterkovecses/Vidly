@@ -8,7 +8,7 @@ namespace Vidly.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var musicAlbum = (MusicAlbumDTO)validationContext.ObjectInstance;
+            var musicAlbum = (MusicAlbumDto)validationContext.ObjectInstance;
 
             if (musicAlbum.ReleaseDate <= DateTime.Now)
                 return ValidationResult.Success;

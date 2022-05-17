@@ -4,7 +4,7 @@ using Vidly.Models;
 
 namespace Vidly.DTOs
 {
-    public class MusicAlbumDTO
+    public class MusicAlbumDto
     {
         public int Id { get; set; }
         public string Artist { get; set; }
@@ -20,6 +20,6 @@ namespace Vidly.DTOs
         public byte NumberInStock { get; set; }
 
         public byte GenreId { get; set; }
-        public MusicGenreDTO Genre { get; set; }
+        public MusicGenreDto Genre { get; set; }
     }
 }

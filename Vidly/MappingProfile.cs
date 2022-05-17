@@ -8,9 +8,9 @@ namespace Vidly
     {
         public MappingProfile()
         {
-            CreateMap<MusicAlbum, MusicAlbumDTO>();
-            CreateMap<MusicAlbumDTO, MusicAlbum>();
-            CreateMap<MusicGenre, MusicGenreDTO>();
+            CreateMap<MusicAlbum, MusicAlbumDto>();
+            CreateMap<MusicAlbumDto, MusicAlbum>();
+            CreateMap<MusicGenre, MusicGenreDto>();
         }
     }
 }

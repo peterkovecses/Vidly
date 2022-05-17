@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Vidly.DTOs;
+using Vidly.Interfaces;
 using Vidly.Models;
 
 namespace Vidly.Controllers.Api
@@ -16,87 +15,84 @@ namespace Vidly.Controllers.Api
     public class MusicAlbumsController : ControllerBase
     {
         private readonly VidlyDbContext _dbContext;
+        private readonly IMusicAlbumService _musicAlbumService;
         private readonly IMapper _mapper;
 
-        public MusicAlbumsController(VidlyDbContext dbContext, IMapper mapper)
+        public MusicAlbumsController(VidlyDbContext dbContext, IMusicAlbumService musicAlbumService, IMapper mapper)
         {
             _dbContext = dbContext;
+            _musicAlbumService = musicAlbumService;
             _mapper = mapper;
         }
 
         // GET /api/musicalbums
         [HttpGet]
-        public IActionResult GetMusicAlbums(string query = null)
+        public async Task<IActionResult> GetMusicAlbumsAsync(string query = null)
         {
-            var musicAlbumsQuery = _dbContext.MusicAlbums.Include(ma => ma.Genre);
+            var musicAlbums = await _musicAlbumService.GetMusicAlbumsAsync();
 
             if (!String.IsNullOrWhiteSpace(query))
-                musicAlbumsQuery = (IIncludableQueryable<MusicAlbum, MusicGenre>)musicAlbumsQuery.Where(m => m.Title.Contains(query));
+                musicAlbums = musicAlbums.Where(m => m.Title.Contains(query));
 
-            return Ok(musicAlbumsQuery.ToList().Select(_mapper.Map<MusicAlbum, MusicAlbumDTO>));
+            return Ok(musicAlbums);
         }
 
         // GET /api/musicalbums/1
         [HttpGet("{id}")]
-        public IActionResult GetMusicAlbum(int id)
+        public async Task<IActionResult> GetMusicAlbumAsync(int id)
         {
-            var musicAlbum = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == id);
+            var musicAlbum = await _musicAlbumService.GetMusicAlbumAsync(id);
 
             if (musicAlbum == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<MusicAlbum, MusicAlbumDTO>(musicAlbum));
+            return Ok(musicAlbum);
         }
 
         // POST /api/musicalbums
         [HttpPost]
-        public IActionResult CreateMusicAlbum(MusicAlbumDTO musicAlbumDTO)
+        public async Task<IActionResult> CreateMusicAlbumAsync(MusicAlbumDto musicAlbumDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
-            var musicAlbum = _mapper.Map<MusicAlbumDTO, MusicAlbum>(musicAlbumDTO);
+            musicAlbumDto.Id = await _musicAlbumService.AddMusicAlbumAsync(musicAlbumDto);
 
-            _dbContext.MusicAlbums.Add(musicAlbum);
-            _dbContext.SaveChanges();
-
-            musicAlbumDTO.Id = musicAlbum.Id;
-
-            return Created(new Uri(Request.GetDisplayUrl() + "/" + musicAlbum.Id), musicAlbumDTO);
+            return CreatedAtAction("GetMusicAlbumAsync", new { id = musicAlbumDto.Id }, musicAlbumDto);
         }
 
         // PUT /api/musicalbums/1
         [HttpPut("{id}")]
-        public IActionResult UpdateMusicAlbum(int id, MusicAlbumDTO musicAlbumDTO)
+        public async Task<IActionResult> UpdateMusicAlbumAsync(int id, MusicAlbumDto musicAlbumDto)
         {
             if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (id != musicAlbumDto.Id)
                 return BadRequest();
 
-            var musicAlbumInDb = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == id);
-
-            if (musicAlbumInDb == null)
-                return NotFound();
-
-            musicAlbumDTO.Id = id;
-
-            _mapper.Map(musicAlbumDTO, musicAlbumInDb);
-
-            _dbContext.SaveChanges();
-
-            return Ok();
+            try
+            {
+                await _musicAlbumService.UpdateMusicAlbumAsync(musicAlbumDto);
+                return Ok(musicAlbumDto);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _musicAlbumService.IsMusicAlbumExists(id))
+                    return NotFound();
+                else
+                    return BadRequest();
+            }
         }
 
         // DELETE /api/musicalbums/1
         [HttpDelete("{id}")]
-        public IActionResult DeleteMusicAlbum(int id)
+        public async Task<IActionResult> DeleteMusicAlbumAsync(int id)
         {
-            var musicAlbumInDb = _dbContext.MusicAlbums.SingleOrDefault(ma => ma.Id == id);
-
-            if (musicAlbumInDb == null)
+            if (!await _musicAlbumService.IsMusicAlbumExists(id))
                 return NotFound();
 
-            _dbContext.MusicAlbums.Remove(musicAlbumInDb);
-            _dbContext.SaveChanges();
+            await _musicAlbumService.DeleteMusicAlbumAsync(id);
 
             return Ok();
         }

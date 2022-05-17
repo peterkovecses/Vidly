@@ -1,6 +1,6 @@
 ﻿namespace Vidly.DTOs
 {
-    public class MusicGenreDTO
+    public class MusicGenreDto
     {
         public byte Id { get; set; }
         public string Name { get; set; }
