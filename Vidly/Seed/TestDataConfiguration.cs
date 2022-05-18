@@ -55,6 +55,13 @@ namespace Vidly.Seed
                 new MusicAlbum { Id = 3, Artist = "Metallica", Title = "Master of Puppets", GenreId = (byte)3, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1986, 3, 3), NumberInStock = (byte)15 },
                 new MusicAlbum { Id = 4, Artist = "Metallica", Title = "...And Justice for All", GenreId = (byte)3, DateAdded = new DateTime(2022, 05, 04), ReleaseDate = new DateTime(1988, 9, 7), NumberInStock = (byte)15 }
                 );
+
+            modelBuilder.Entity<Book>().HasData(
+                new Book { Id = 1, Author = "Courtney Maum", Title = "The Year of the Horses", Description = "At the age of thirty-seven, Courtney Maum finds herself in an indoor arena in Connecticut, moments away from stepping back into the saddle. For her, this is not just a riding lesson, but a last-ditch attempt to pull herself back from the brink even though riding is a relic from the past she walked away from. She hasn’t been on or near a horse in over thirty years. " },
+                new Book { Id = 2, Author = "A.F. Steadman", Title = "Skandar and the Unicorn Thief", Description = "Soar into a breathtaking world of heroes and unicorns as you’ve never seen them before in this fantastical middle grade debut perfect for fans of the Percy Jackson and Eragon series!" },
+                new Book { Id = 3, Author = "Robert Thorogood", Title = "The Marlow Murder Club", Description = "Meet Judith: a seventy-seven-year-old whiskey drinking, crossword puzzle author living her best life in a dilapidated mansion on the outskirts of Marlow." },
+                new Book { Id = 4, Author = "Mike Chen", Title = "Star Wars: Brotherhood", Description = "Obi-Wan Kenobi and Anakin Skywalker must stem the tide of the raging Clone Wars and forge a new bond as Jedi Knights in a high-stakes adventure set just after the events of Star Wars: Attack of the Clones." }
+                );
         }
     }
 }

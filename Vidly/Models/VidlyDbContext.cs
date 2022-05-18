@@ -14,8 +14,7 @@ namespace Vidly.Models
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<MusicAlbum> MusicAlbums { get; set; }
         public DbSet<MusicGenre> MusicGenres { get; set; }
-
-
+        public DbSet<Book> Books { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
