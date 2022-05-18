@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace Vidly.Services
     {
         private readonly VidlyDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IMemoryCache _cache;
 
-        public MusicAlbumService(VidlyDbContext dbContext, IMapper mapper)
+        public MusicAlbumService(VidlyDbContext dbContext, IMapper mapper, IMemoryCache cache)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _cache = cache;
         }
 
         private readonly Expression<Func<MusicAlbum, MusicAlbumDto>> _musicAlbumSelector = ma => new MusicAlbumDto
@@ -41,7 +44,16 @@ namespace Vidly.Services
 
         public async Task<MusicAlbumDto> GetMusicAlbumAsync(int id)
         {
-            return await _dbContext.MusicAlbums.Where(ma => ma.Id == id).Select(_musicAlbumSelector).SingleOrDefaultAsync();
+            var cachedMusicAlbum = _cache.Get<MusicAlbumDto>(id);
+
+            if (cachedMusicAlbum != null)
+                return cachedMusicAlbum;
+
+            var musicAlbumInDb = await _dbContext.MusicAlbums.Where(ma => ma.Id == id).Select(_musicAlbumSelector).SingleOrDefaultAsync();
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(60));
+            _cache.Set(musicAlbumInDb.Id, musicAlbumInDb, cacheEntryOptions);
+
+            return musicAlbumInDb;
         }
 
         public async Task<int> AddMusicAlbumAsync(MusicAlbumDto musicAlbumDto)

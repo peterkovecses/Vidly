@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Vidly.DTOs;
 using Vidly.Interfaces;
-using Vidly.Models;
 
 namespace Vidly.Controllers.Api
 {
@@ -23,6 +21,7 @@ namespace Vidly.Controllers.Api
 
         // GET /api/musicalbums
         [HttpGet]
+        [ResponseCache(Duration = 60)] // seconds
         public async Task<IActionResult> GetMusicAlbumsAsync(string query = null)
         {
             var musicAlbums = await _musicAlbumService.GetMusicAlbumsAsync();
@@ -35,6 +34,7 @@ namespace Vidly.Controllers.Api
 
         // GET /api/musicalbums/1
         [HttpGet("{id}")]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetMusicAlbumAsync(int id)
         {
             var musicAlbum = await _musicAlbumService.GetMusicAlbumAsync(id);

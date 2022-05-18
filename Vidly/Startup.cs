@@ -28,6 +28,8 @@ namespace Vidly
 
             services.AddScoped<IMusicAlbumService, MusicAlbumService>();
 
+            services.AddMemoryCache();
+
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -35,6 +37,8 @@ namespace Vidly
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            services.AddResponseCaching();
 
             services.AddControllersWithViews();
         }
