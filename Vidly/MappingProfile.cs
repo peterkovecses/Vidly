@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Vidly.DTOs;
+using Vidly.Dtos;
 using Vidly.Models;
 
 namespace Vidly
@@ -11,6 +11,8 @@ namespace Vidly
             CreateMap<MusicAlbum, MusicAlbumDto>();
             CreateMap<MusicAlbumDto, MusicAlbum>();
             CreateMap<MusicGenre, MusicGenreDto>();
+            CreateMap<Book, BookDto>();
+            CreateMap<BookDto, Book>();
         }
     }
 }

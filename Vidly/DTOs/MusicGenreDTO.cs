@@ -1,4 +1,4 @@
-﻿namespace Vidly.DTOs
+﻿namespace Vidly.Dtos
 {
     public class MusicGenreDto
     {

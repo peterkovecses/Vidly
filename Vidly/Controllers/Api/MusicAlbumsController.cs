@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Vidly.DTOs;
+using Vidly.Dtos;
 using Vidly.Interfaces;
 
 namespace Vidly.Controllers.Api
@@ -33,7 +33,7 @@ namespace Vidly.Controllers.Api
         }
 
         // GET /api/musicalbums/1
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetMusicAlbum")]
         [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetMusicAlbumAsync(int id)
         {
@@ -54,7 +54,7 @@ namespace Vidly.Controllers.Api
 
             musicAlbumDto.Id = await _musicAlbumService.AddMusicAlbumAsync(musicAlbumDto);
 
-            return CreatedAtAction("GetMusicAlbumAsync", new { id = musicAlbumDto.Id }, musicAlbumDto);
+            return CreatedAtAction("GetMusicAlbum", new { id = musicAlbumDto.Id }, musicAlbumDto);
         }
 
         // PUT /api/musicalbums/1
@@ -89,7 +89,6 @@ namespace Vidly.Controllers.Api
                 return NotFound();
 
             await _musicAlbumService.DeleteMusicAlbumAsync(id);
-
             return Ok();
         }
     }

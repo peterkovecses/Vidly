@@ -27,6 +27,7 @@ namespace Vidly
             services.AddDbContext<VidlyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IMusicAlbumService, MusicAlbumService>();
+            services.AddScoped<IBookService, BookService>();
 
             services.AddMemoryCache();
 
@@ -38,7 +39,7 @@ namespace Vidly
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddResponseCaching();
+            services.AddResponseCaching();            
 
             services.AddControllersWithViews();
         }

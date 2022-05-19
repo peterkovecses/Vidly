@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Vidly.Models;
 
-namespace Vidly.DTOs
+namespace Vidly.Dtos
 {
     public class MusicAlbumDto
     {

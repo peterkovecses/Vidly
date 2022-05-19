@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Vidly.DTOs;
+using Vidly.Dtos;
 using Vidly.Interfaces;
 using Vidly.Models;
 
